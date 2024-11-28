@@ -6,13 +6,24 @@ Game::Game(const Vector2 size):
     m_grid(Grid(20, 12, 30, 11)), 
     m_block(Block(m_grid)),
     m_next_block(Block(m_grid)),
-    m_score(0) {
+    m_score(0),
+    m_game_over(false),
+    m_game_speed(0.2),
+    m_last_update_time_in_secs(0.0) {
     m_block.morph();
     m_next_block.morph();
 }
 
 void Game::on_update() {
-    // TODO: update logic here
+    const double current_time_in_secs = GetTime();
+
+    if (current_time_in_secs - m_last_update_time_in_secs < m_game_speed) {
+        return;
+    }
+
+    m_last_update_time_in_secs = current_time_in_secs;
+
+    move_block_down();
 }
 
 static constexpr const int s_hud_padding = 8;
@@ -32,4 +43,72 @@ void Game::on_render() {
     s_hud_buffer.width = s_hud_buffer.height = m_size.x - s_hud_buffer.x - s_hud_padding;
     DrawRectangleRec(s_hud_buffer, Colors::next_block_panel_color);
     m_next_block.on_render_preview(s_hud_buffer);
+}
+
+void Game::move_block_down() {
+    if (m_game_over) {
+        return;
+    }
+
+    m_block.move_by(1, 0);
+
+    if (is_block_outside_grid_or_touching_another_block()) {
+        m_block.move_by(-1, 0);
+        lock_block();
+    }
+}
+
+void Game::lock_block() {
+    int position, transformed_row, transformed_col;
+
+    for (position = 0; position < Block::maxPositions; position++) {
+        const auto& cell = m_block.get_block_cell(position);
+        transformed_row = cell.row + m_block.get_row_offset();
+        transformed_col = cell.col + m_block.get_col_offset();
+        m_grid.set_cell_value(transformed_row, transformed_col, m_block.get_block_color_index());
+    }
+
+    m_block.clone(m_next_block);
+
+    if (is_block_outside_grid_or_touching_another_block()) {
+        m_game_over = true;
+    }
+
+    m_next_block.morph();
+
+    int rows_cleared = m_grid.clear_full_rows();
+    if (rows_cleared > 0) {
+        // TODO: play score sound
+        update_score(rows_cleared, 0);
+    }
+}
+
+bool Game::is_block_outside_grid_or_touching_another_block() {
+    int position, transformed_row, transformed_col;
+    for (position = 0; position < Block::maxPositions; position++) {
+        const auto& cell = m_block.get_block_cell(position);
+        transformed_row = cell.row + m_block.get_row_offset();
+        transformed_col = cell.col + m_block.get_col_offset();
+        if (m_grid.is_offset_outside_grid(transformed_row, transformed_col)) {
+            return true;
+        } else if (!m_grid.is_cell_empty(transformed_row, transformed_col)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Game::update_score(const unsigned int& lines_cleared, const unsigned int& down_points) {
+    switch (lines_cleared) {
+    case 1:
+        m_score += 100;
+        break;
+    case 2:
+        m_score += 300;
+        break;
+    case 3:
+        m_score += 500;
+        break;
+    }
+    m_score += down_points;
 }
