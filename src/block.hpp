@@ -13,6 +13,11 @@ typedef enum : unsigned char {
     BLOCK_TYPE_MAX
 } BlockType;
 
+typedef struct {
+    const int row;
+    const int col;
+} BlockCell;
+
 class Block {
 public:
     static constexpr const int maxRotations = 4;
@@ -31,4 +36,7 @@ public:
     void rotate(void);
     void undo_rotate(void);
     void morph(void);
+    const int& get_row_offset(void) const;
+    const int& get_col_offset(void) const;
+    const BlockCell& get_block_cell(const int position) const;
 };

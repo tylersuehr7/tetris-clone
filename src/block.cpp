@@ -1,11 +1,6 @@
 #include "block.hpp"
 #include "colors.hpp"
 
-typedef struct {
-    const int row;
-    const int col;
-} BlockCell;
-
 static const struct {
     BlockColorIndex color_id;
     BlockCell offset;
@@ -162,4 +157,16 @@ void Block::morph() {
     m_col_offset = g_templates[m_type].offset.col;
     m_row_offset = g_templates[m_type].offset.row;
     m_rotation = 0;
+}
+
+const int& Block::get_row_offset() const {
+    return m_row_offset;
+}
+
+const int& Block::get_col_offset() const {
+    return m_col_offset;
+}
+
+const BlockCell& Block::get_block_cell(const int position) const {
+    return g_templates[m_type].cells[m_rotation][position];
 }
