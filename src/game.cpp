@@ -4,7 +4,9 @@
 Game::Game(const Vector2 size): 
     m_size(size),
     m_grid(Grid(20, 12, 30, 11)), 
+    m_block(Block(m_grid)),
     m_score(0) {
+    m_block.morph();
 }
 
 void Game::on_update() {
@@ -15,6 +17,7 @@ void Game::on_render() {
     ClearBackground(Colors::window_color);
 
     m_grid.on_render();
+    m_block.on_render();
 
     // Drawing the HUD
     const int hud_padding = 8;
