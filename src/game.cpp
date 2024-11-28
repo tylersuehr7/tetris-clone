@@ -17,6 +17,12 @@ Game::Game(const Vector2 size):
  void Game::on_handle_input() {
     const int pressed_key = GetKeyPressed();
 
+    // Press any key to play again when dead
+    if (m_game_over && pressed_key != 0) {
+        m_game_over = false;
+        play_again();
+    }
+
     switch (pressed_key) {
     case KEY_LEFT:
         move_block_left();
@@ -169,4 +175,11 @@ void Game::update_score(const unsigned int& lines_cleared, const unsigned int& d
         break;
     }
     m_score += down_points;
+}
+
+void Game::play_again() {
+    m_score = 0;
+    m_grid.reset_all_cells();
+    m_block.morph();
+    m_next_block.morph();
 }

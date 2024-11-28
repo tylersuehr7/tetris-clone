@@ -25,6 +25,7 @@ public:
     const bool is_cell_empty(const unsigned int& row, const unsigned int& col);
     void set_cell_value(const unsigned int& row, const unsigned int& col, const BlockColorIndex index);
     const int clear_full_rows(void);
+    void reset_all_cells(void);
 private:
     const bool is_row_full(const unsigned int& row);
     void clear_row(const unsigned int& row);

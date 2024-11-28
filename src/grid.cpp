@@ -91,3 +91,12 @@ void Grid::move_row_down(const unsigned int& row, const unsigned int& num_rows_c
         m_cells[row][col] = BCI_GRID;
     }
 }
+
+void Grid::reset_all_cells() {
+    unsigned int row, col;
+    for (row = 0; row < m_rows; row++) {
+        for (col = 0; col < m_cols; col++) {
+            m_cells[row][col] = BCI_GRID;
+        }
+    }
+}

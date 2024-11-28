@@ -27,4 +27,5 @@ private:
     void lock_block(void);
     bool is_block_outside_grid_or_touching_another_block(void);
     void update_score(const unsigned int& lines_cleared, const unsigned int& down_points);
+    void play_again(void);
 };
