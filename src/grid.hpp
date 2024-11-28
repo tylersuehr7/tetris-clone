@@ -19,4 +19,6 @@ public:
         const unsigned int cell_padding
     );
     void on_render(void);
+    const unsigned int get_cell_size() const;
+    const unsigned int get_cell_padding() const;
 };

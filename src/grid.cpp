@@ -27,3 +27,11 @@ void Grid::on_render() {
         }
     }
 }
+
+const unsigned int Grid::get_cell_size() const {
+    return m_cell_size;
+}
+
+const unsigned int Grid::get_cell_padding() const {
+    return m_cell_padding;
+}
