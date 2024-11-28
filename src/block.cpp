@@ -167,6 +167,10 @@ const int& Block::get_col_offset() const {
     return m_col_offset;
 }
 
-const BlockCell& Block::get_block_cell(const int position) const {
+const BlockColorIndex& Block::get_block_color_index() const {
+    return g_templates[m_type].color_id;
+}
+
+const BlockCell& Block::get_block_cell(const int& position) const {
     return g_templates[m_type].cells[m_rotation][position];
 }

@@ -38,5 +38,6 @@ public:
     void morph(void);
     const int& get_row_offset(void) const;
     const int& get_col_offset(void) const;
-    const BlockCell& get_block_cell(const int position) const;
+    const BlockCell& get_block_cell(const int& position) const;
+    const BlockColorIndex& get_block_color_index() const;
 };
