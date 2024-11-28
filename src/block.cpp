@@ -8,10 +8,12 @@ typedef struct {
 
 static const struct {
     BlockColorIndex color_id;
+    BlockCell offset;
     BlockCell cells[Block::maxRotations][Block::maxPositions];
 } g_templates[BLOCK_TYPE_MAX] = {
     {
         .color_id=BCI_YELLOW,
+        .offset={.row=0, .col=4},
         .cells={
             {{.row=0, .col=2}, {.row=1, .col=0}, {.row=1, .col=1}, {.row=1, .col=2}},
             {{.row=0, .col=1}, {.row=1, .col=1}, {.row=2, .col=1}, {.row=2, .col=2}},
@@ -21,6 +23,7 @@ static const struct {
     }, // BLOCK_TYPE_L
     {
         .color_id=BCI_GREEN,
+        .offset={.row=0, .col=4},
         .cells={
             {{.row=0, .col=0}, {.row=1, .col=0}, {.row=1, .col=1}, {.row=1, .col=2}},
             {{.row=0, .col=1}, {.row=0, .col=2}, {.row=1, .col=1}, {.row=2, .col=1}},
@@ -30,6 +33,7 @@ static const struct {
     }, // BLOCK_TYPE_J
     {
         .color_id=BCI_BLUE,
+        .offset={.row=-1, .col=4},
         .cells={
             {{.row=1, .col=0}, {.row=1, .col=1}, {.row=1, .col=2}, {.row=1, .col=3}},
             {{.row=0, .col=2}, {.row=1, .col=2}, {.row=2, .col=2}, {.row=3, .col=2}},
@@ -39,6 +43,7 @@ static const struct {
     }, // BLOCK_TYPE_I
     {
         .color_id=BCI_ORANGE,
+        .offset={.row=0, .col=5},
         .cells={
             {{.row=0, .col=0}, {.row=0, .col=1}, {.row=1, .col=0}, {.row=1, .col=1}},
             {{.row=0, .col=0}, {.row=0, .col=1}, {.row=1, .col=0}, {.row=1, .col=1}},
@@ -48,6 +53,7 @@ static const struct {
     }, // BLOCK_TYPE_O
     {
         .color_id=BCI_PURPLE,
+        .offset={.row=0, .col=4},
         .cells={
             {{.row=0, .col=1}, {.row=0, .col=2}, {.row=1, .col=0}, {.row=1, .col=1}},
             {{.row=0, .col=1}, {.row=1, .col=1}, {.row=1, .col=2}, {.row=2, .col=2}},
@@ -57,6 +63,7 @@ static const struct {
     }, // BLOCK_TYPE_S
     {
         .color_id=BCI_RED,
+        .offset={.row=0, .col=4},
         .cells={
             {{.row=0, .col=1}, {.row=1, .col=0}, {.row=1, .col=1}, {.row=1, .col=2}},
             {{.row=0, .col=1}, {.row=1, .col=1}, {.row=1, .col=2}, {.row=2, .col=1}},
@@ -66,6 +73,7 @@ static const struct {
     }, // BLOCK_TYPE_T
     {
         .color_id=BCI_LIGHT_BLUE,
+        .offset={.row=0, .col=4},
         .cells={
             {{.row=0, .col=0}, {.row=0, .col=1}, {.row=1, .col=1}, {.row=1, .col=2}},
             {{.row=0, .col=2}, {.row=1, .col=1}, {.row=1, .col=2}, {.row=2, .col=1}},
@@ -115,7 +123,7 @@ void Block::undo_rotate() {
 
 void Block::morph() {
     m_type = (BlockType) GetRandomValue(0, BLOCK_TYPE_MAX);
-    m_col_offset = 0;
-    m_row_offset = 0;
+    m_col_offset = g_templates[m_type].offset.col;
+    m_row_offset = g_templates[m_type].offset.row;
     m_rotation = 0;
 }
