@@ -12,6 +12,7 @@ int main(void) {
     Game game((Vector2){.x=windowWidth, .y=windowHeight});
 
     while (!WindowShouldClose()) {
+        game.on_handle_input();
         game.on_update();
         BeginDrawing();
         game.on_render();

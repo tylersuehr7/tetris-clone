@@ -14,6 +14,26 @@ Game::Game(const Vector2 size):
     m_next_block.morph();
 }
 
+ void Game::on_handle_input() {
+    const int pressed_key = GetKeyPressed();
+
+    switch (pressed_key) {
+    case KEY_LEFT:
+        move_block_left();
+        break;
+    case KEY_RIGHT:
+        move_block_right();
+        break;
+    case KEY_DOWN:
+        move_block_down();
+        update_score(0, 1);
+        break;
+    case KEY_UP:
+        rotate_block();
+        break;
+    }
+ }
+
 void Game::on_update() {
     const double current_time_in_secs = GetTime();
 
@@ -45,6 +65,20 @@ void Game::on_render() {
     m_next_block.on_render_preview(s_hud_buffer);
 }
 
+void Game::rotate_block() {
+    if (m_game_over) {
+        return;
+    }
+
+    m_block.rotate();
+
+    if (is_block_outside_grid_or_touching_another_block()) {
+        m_block.undo_rotate();
+    } else {
+        // TODO: play rotation sound
+    }
+}
+
 void Game::move_block_down() {
     if (m_game_over) {
         return;
@@ -55,6 +89,30 @@ void Game::move_block_down() {
     if (is_block_outside_grid_or_touching_another_block()) {
         m_block.move_by(-1, 0);
         lock_block();
+    }
+}
+
+void Game::move_block_left() {
+    if (m_game_over) {
+        return;
+    }
+
+    m_block.move_by(0, -1);
+
+    if (is_block_outside_grid_or_touching_another_block()) {
+        m_block.move_by(0, 1);
+    }
+}
+
+void Game::move_block_right() {
+    if (m_game_over) {
+        return;
+    }
+
+    m_block.move_by(0, 1);
+
+    if (is_block_outside_grid_or_touching_another_block()) {
+        m_block.move_by(0, -1);
     }
 }
 
