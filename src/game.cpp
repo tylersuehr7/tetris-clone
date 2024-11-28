@@ -16,6 +16,7 @@ void Game::on_update() {
 }
 
 static constexpr const int s_hud_padding = 8;
+static Rectangle s_hud_buffer;
 
 void Game::on_render() {
     ClearBackground(Colors::window_color);
@@ -24,10 +25,11 @@ void Game::on_render() {
     m_block.on_render();
 
     // Drawing the HUD
-    const float hud_text_offset_x = m_size.x - s_hud_padding - 115;
-    DrawText(TextFormat("TIME: %d", 0), hud_text_offset_x, s_hud_padding + 12, 14, RED);
-    DrawText(TextFormat("SCORE: %d", m_score), hud_text_offset_x, s_hud_padding + 42, 14, RED);
-
-    const float hud_block_panel_size = m_size.x - hud_text_offset_x - s_hud_padding;
-    DrawRectangle(hud_text_offset_x, s_hud_padding + 70, hud_block_panel_size, hud_block_panel_size, Colors::next_block_panel_color);
+    s_hud_buffer.x = m_size.x - s_hud_padding - 115;
+    DrawText(TextFormat("TIME: %d", 0), s_hud_buffer.x, s_hud_padding + 12, 14, RED);
+    DrawText(TextFormat("SCORE: %d", m_score), s_hud_buffer.x, s_hud_padding + 42, 14, RED);
+    s_hud_buffer.y = s_hud_padding + 70;
+    s_hud_buffer.width = s_hud_buffer.height = m_size.x - s_hud_buffer.x - s_hud_padding;
+    DrawRectangleRec(s_hud_buffer, Colors::next_block_panel_color);
+    m_next_block.on_render_preview(s_hud_buffer);
 }

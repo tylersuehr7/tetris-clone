@@ -26,6 +26,7 @@ private:
 public:
     Block(const Grid &grid);
     void on_render(void);
+    void on_render_preview(const Rectangle inside_bounds);
     void move_by(const int rows, const int cols);
     void rotate(void);
     void undo_rotate(void);
