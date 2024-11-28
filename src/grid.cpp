@@ -47,3 +47,47 @@ const bool Grid::is_cell_empty(const unsigned int& row, const unsigned int& col)
 void Grid::set_cell_value(const unsigned int& row, const unsigned int& col, const BlockColorIndex index) {
     m_cells[row][col] = index;
 }
+
+const int Grid::clear_full_rows() {
+    unsigned int row, num_rows_cleared = 0;
+
+    for (row = m_rows - 1; row > 0; row--) {
+        if (is_row_full(row)) {
+            clear_row(row);
+            num_rows_cleared++;
+        } else if (num_rows_cleared > 0) {
+            move_row_down(row, num_rows_cleared);
+        }
+    }
+
+    return num_rows_cleared;
+}
+
+const bool Grid::is_row_full(const unsigned int& row) {
+    bool is_full = true;
+    unsigned int col;
+
+    for (col = 0; col < m_cols; col++) {
+        if (m_cells[row][col] == 0) {
+            is_full = false;
+            break;
+        }
+    }
+    
+    return is_full;
+}
+
+void Grid::clear_row(const unsigned int& row) {
+    unsigned int col;
+    for (col = 0; col < m_cols; col++) {
+        m_cells[row][col] = BCI_GRID;
+    }
+}
+
+void Grid::move_row_down(const unsigned int& row, const unsigned int& num_rows_cleared) {
+    unsigned int col;
+    for (col = 0; col < m_cols; col++) {
+        m_cells[row + num_rows_cleared][col] = m_cells[row][col];
+        m_cells[row][col] = BCI_GRID;
+    }
+}

@@ -24,4 +24,9 @@ public:
     const bool is_offset_outside_grid(const int& row_offset, const int& col_offset);
     const bool is_cell_empty(const unsigned int& row, const unsigned int& col);
     void set_cell_value(const unsigned int& row, const unsigned int& col, const BlockColorIndex index);
+    const int clear_full_rows(void);
+private:
+    const bool is_row_full(const unsigned int& row);
+    void clear_row(const unsigned int& row);
+    void move_row_down(const unsigned int& row, const unsigned int& num_rows_cleared);
 };
