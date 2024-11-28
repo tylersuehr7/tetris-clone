@@ -9,7 +9,7 @@ int main(void) {
     InitWindow(windowWidth, windowHeight, "Tetris");
     SetTargetFPS(120);
 
-    Game game;
+    Game game((Vector2){.x=windowWidth, .y=windowHeight});
 
     while (!WindowShouldClose()) {
         game.on_update();
