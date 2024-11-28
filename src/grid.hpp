@@ -23,4 +23,5 @@ public:
     const unsigned int get_cell_padding() const;
     const bool is_offset_outside_grid(const int& row_offset, const int& col_offset);
     const bool is_cell_empty(const unsigned int& row, const unsigned int& col);
+    void set_cell_value(const unsigned int& row, const unsigned int& col, const BlockColorIndex index);
 };

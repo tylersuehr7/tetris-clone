@@ -43,3 +43,7 @@ const bool Grid::is_offset_outside_grid(const int& row_offset, const int& col_of
 const bool Grid::is_cell_empty(const unsigned int& row, const unsigned int& col) {
     return m_cells[row][col] == BCI_GRID;
 }
+
+void Grid::set_cell_value(const unsigned int& row, const unsigned int& col, const BlockColorIndex index) {
+    m_cells[row][col] = index;
+}
