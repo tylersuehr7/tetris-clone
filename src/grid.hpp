@@ -21,5 +21,6 @@ public:
     void on_render(void);
     const unsigned int get_cell_size() const;
     const unsigned int get_cell_padding() const;
-    const bool is_offset_outside_grid(const int row, const int col);
+    const bool is_offset_outside_grid(const int& row_offset, const int& col_offset);
+    const bool is_cell_empty(const unsigned int& row, const unsigned int& col);
 };

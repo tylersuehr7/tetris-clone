@@ -36,6 +36,10 @@ const unsigned int Grid::get_cell_padding() const {
     return m_cell_padding;
 }
 
-const bool Grid::is_offset_outside_grid(const int row, const int col) {
-    return row < 0 || col < 0 || row >= m_rows || col >= m_cols;
+const bool Grid::is_offset_outside_grid(const int& row_offset, const int& col_offset) {
+    return row_offset < 0 || col_offset < 0 || row_offset >= m_rows || col_offset >= m_cols;
+}
+
+const bool Grid::is_cell_empty(const unsigned int& row, const unsigned int& col) {
+    return m_cells[row][col] == BCI_GRID;
 }
