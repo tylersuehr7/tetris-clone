@@ -35,3 +35,7 @@ const unsigned int Grid::get_cell_size() const {
 const unsigned int Grid::get_cell_padding() const {
     return m_cell_padding;
 }
+
+const bool Grid::is_offset_outside_grid(const int row, const int col) {
+    return row < 0 || col < 0 || row >= m_rows || col >= m_cols;
+}
