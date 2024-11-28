@@ -9,6 +9,7 @@ private:
     const Vector2 m_size;
     Grid m_grid;
     Block m_block;
+    Block m_next_block;
     int m_score;
 public:
     Game(const Vector2 size);

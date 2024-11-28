@@ -4,6 +4,8 @@ const Color Colors::window_color = RAYWHITE;
 
 const Color Colors::grid_color = LIGHTGRAY;
 
+const Color Colors::next_block_panel_color = LIGHTGRAY;
+
 const Color Colors::block_colors[] = {
     Colors::grid_color,  // BCI_GRID
     {26, 31, 40, 255},   // BCI_DARK_GREY

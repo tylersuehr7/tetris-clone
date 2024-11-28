@@ -20,5 +20,6 @@ typedef enum : unsigned char {
 namespace Colors {
     extern const Color window_color;
     extern const Color grid_color;
+    extern const Color next_block_panel_color;
     extern const Color block_colors[BCI_MAX];
 }
