@@ -139,6 +139,13 @@ void Block::on_render_preview(const Rectangle inside_bounds) {
     }
 }
 
+void Block::clone(const Block &block) {
+    m_col_offset = block.m_col_offset;
+    m_row_offset = block.m_row_offset;
+    m_rotation = block.m_rotation;
+    m_type = block.m_type;
+}
+
 void Block::move_by(const int rows, const int cols) {
     m_row_offset = rows;
     m_col_offset = cols;
