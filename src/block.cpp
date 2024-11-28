@@ -122,7 +122,7 @@ void Block::undo_rotate() {
 }
 
 void Block::morph() {
-    m_type = (BlockType) GetRandomValue(0, BLOCK_TYPE_MAX);
+    m_type = (BlockType) GetRandomValue(0, BLOCK_TYPE_MAX - 1);
     m_col_offset = g_templates[m_type].offset.col;
     m_row_offset = g_templates[m_type].offset.row;
     m_rotation = 0;
