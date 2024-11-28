@@ -147,8 +147,8 @@ void Block::clone(const Block &block) {
 }
 
 void Block::move_by(const int rows, const int cols) {
-    m_row_offset = rows;
-    m_col_offset = cols;
+    m_row_offset += rows;
+    m_col_offset += cols;
 }
 
 void Block::rotate() {

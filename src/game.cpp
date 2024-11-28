@@ -52,10 +52,10 @@ void Game::move_block_down() {
 
     m_block.move_by(1, 0);
 
-    if (is_block_outside_grid_or_touching_another_block()) {
-        m_block.move_by(-1, 0);
-        lock_block();
-    }
+    // if (is_block_outside_grid_or_touching_another_block()) {
+    //     m_block.move_by(-1, 0);
+    //     lock_block();
+    // }
 }
 
 void Game::lock_block() {
@@ -70,9 +70,9 @@ void Game::lock_block() {
 
     m_block.clone(m_next_block);
 
-    if (is_block_outside_grid_or_touching_another_block()) {
-        m_game_over = true;
-    }
+    // if (is_block_outside_grid_or_touching_another_block()) {
+    //     m_game_over = true;
+    // }
 
     m_next_block.morph();
 
