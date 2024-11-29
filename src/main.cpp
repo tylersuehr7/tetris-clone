@@ -7,6 +7,7 @@ static constexpr const int fps = 120;
 
 int main(void) {
     InitWindow(windowWidth, windowHeight, "Tetris");
+    InitAudioDevice();
     SetTargetFPS(120);
 
     Game game((Vector2){.x=windowWidth, .y=windowHeight});
@@ -19,6 +20,7 @@ int main(void) {
         EndDrawing();
     }
 
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
