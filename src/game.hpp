@@ -16,6 +16,7 @@ private:
     double m_last_update_time_in_secs;
 public:
     Game(const Vector2 size);
+    ~Game();
     void on_handle_input(void);
     void on_update(void);
     void on_render(void);

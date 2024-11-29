@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "colors.hpp"
+#include "sounds.hpp"
 
 Game::Game(const Vector2 size): 
     m_size(size),
@@ -12,9 +13,15 @@ Game::Game(const Vector2 size):
     m_last_update_time_in_secs(0.0) {
     m_block.morph();
     m_next_block.morph();
+    Sounds::load_sounds();
+    Sounds::start_background_music();
 }
 
- void Game::on_handle_input() {
+Game::~Game() {
+    Sounds::unload_sounds();
+}
+
+void Game::on_handle_input() {
     const int pressed_key = GetKeyPressed();
 
     // Press any key to play again when dead
@@ -38,9 +45,11 @@ Game::Game(const Vector2 size):
         rotate_block();
         break;
     }
- }
+}
 
 void Game::on_update() {
+    Sounds::continue_background_music();
+
     const double current_time_in_secs = GetTime();
 
     if (current_time_in_secs - m_last_update_time_in_secs < m_game_speed) {
@@ -86,7 +95,7 @@ void Game::rotate_block() {
     if (is_block_outside_grid_or_touching_another_block()) {
         m_block.undo_rotate();
     } else {
-        // TODO: play rotation sound
+        Sounds::play_rotate();
     }
 }
 
@@ -147,7 +156,7 @@ void Game::lock_block() {
 
     int rows_cleared = m_grid.clear_full_rows();
     if (rows_cleared > 0) {
-        // TODO: play score sound
+        Sounds::play_clear();
         update_score(rows_cleared, 0);
     }
 }
