@@ -69,6 +69,11 @@ void Game::on_render() {
     s_hud_buffer.width = s_hud_buffer.height = m_size.x - s_hud_buffer.x - s_hud_padding;
     DrawRectangleRec(s_hud_buffer, Colors::next_block_panel_color);
     m_next_block.on_render_preview(s_hud_buffer);
+
+    if (m_game_over) {
+        DrawText("GAME OVER", m_size.x / 2 - 130, m_size.y / 2 - 50, 40, RED);
+        DrawText("Press any key to Try Again", m_size.x / 2 - 150, m_size.y / 2 - 10, 20, RED);
+    }
 }
 
 void Game::rotate_block() {
